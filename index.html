@@ -1,0 +1,117 @@
+<header>
+	<style type="text/css">
+		body {
+			font-family: "Helvetica", "Arial";
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		table {
+			border-collapse: collapse;
+		}
+
+		table, th, td {
+			border: 2px solid black;
+		}
+		td {
+			width: 120px;
+			height: 160px;
+			text-align: center;
+			padding: 20px;
+		}
+		button {
+			margin: 16px 0px;
+			background-color: #666;
+			border-radius: 4px;
+			color: #fff;
+			height: 32px;
+			max-width: 120px
+		}
+		.title {
+			margin: 16px 0px;
+			font-weight: 900;
+			text-align: center;
+		}
+		.bingoContainer {
+			margin: 16px 0px;
+		}
+	</style>
+	<script type="text/javascript">
+		function replaceExistingBingo() {
+			const container = document.getElementById('bingoContainer');
+			const bingoDictionary = makeBingoDictionary();
+			container.innerHTML = '';
+			container.appendChild(makeTableWithCellsFrom(bingoDictionary));
+		}
+
+		function makeTableWithCellsFrom(dictionary) {
+			const table = document.createElement('table');
+			for (var i = 0; i < 5; i++) {
+				const row = table.insertRow();
+				for (var j = 0; j < 5; j++) {
+					const cell = row.insertCell(j);
+					cell.innerHTML = dictionary[i][j];
+				}
+			}
+			return table;
+		}
+
+		function shuffleArray(array) {
+		    for (let i = array.length - 1; i > 0; i--) {
+		        const j = Math.floor(Math.random() * (i + 1));
+		        [array[i], array[j]] = [array[j], array[i]];
+		    }
+		}
+
+		function makeBingoDictionary() {
+			const centerCell = "Free - More than 2 people talking at once/\nScreaming";
+			const cells = [
+				"Gyeongwon eats food from clothing",
+				"Yaebin imitates Pengsu",
+				"Eunwoo makes cat sounds",
+				"Gyeongwon shows her socks",
+				"Red Velvet is mentioned",
+				"Bada watches all the members do something but doesn't do it",
+				"Minkyeung says she won't do aegyo but does it anyway",
+				"Bada looks to Minkyeung for reassurance",
+				"Yaebin says something sassy in English",
+				"Eunwoo shows that she can't stretch",
+				"Minkyeung does damage control",
+				"Yaebin gets grumpy because they tease her",
+				"Bada has an unexpected retort",
+				"The camera changes orientation or falls",
+				"Someone isn't wearing their shoes properly",
+				"Eunwoo explains DRIP/\nMinkyeung explains HINAPIA",
+				"Gyeongwon suggests they end the vlive after N hearts",
+				"Someone kisses someone else",
+				"The 98s call the 97s old",
+				"Bada is encouraged to do something",
+				"Someone drinks an ice americano",
+				"'I'll find you'",
+				"Someone's face gets really close to the camera",
+				"Any 2 members show that they share 1 braincell",
+				"Bada has enough of whatever everyone else is doing",
+			];
+			shuffleArray(cells);
+			const dictionary = [];
+			for (var i = 0; i < 5; i++) {
+				const row = [];
+				for (var j = 0; j < 5; j++) {
+					if (i == 2 && j == 2) {
+						row.push(centerCell);
+					} else {
+						row.push(cells.pop());
+					}
+				}
+				dictionary.push(row);
+			}
+			return dictionary;
+		}
+	</script>
+</header>
+<body>
+	<div class="title">Hinapia Bingo</div>
+	<button onclick="replaceExistingBingo()">Make Bingo!</button>
+	<div class="bingoContainer" id="bingoContainer">
+	</div>
+</body>
